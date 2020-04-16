@@ -28,9 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import hivatec.ir.easywebservice.EasyWebservice;
-import hivatec.ir.hivatectools.RetrofitHelper.JsonMap;
-import hivatec.ir.hivatectools.RetrofitHelper.RetroCallBack;
-import hivatec.ir.hivatectools.RetrofitHelper.Webservice;
 import hivatec.ir.hivatectools.activityHelpers.ParentActivity;
 import hivatec.ir.hivatectools.helper.GlideHelper;
 import hivatec.ir.hivatectools.helper.SharedPreference;

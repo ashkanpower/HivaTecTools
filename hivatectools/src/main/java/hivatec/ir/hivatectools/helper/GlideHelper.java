@@ -17,11 +17,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URI;
 
-import hivatec.ir.hivatectools.RetrofitHelper.JsonMap;
-import hivatec.ir.hivatectools.RetrofitHelper.RetroCallBack;
-import hivatec.ir.hivatectools.RetrofitHelper.Webservice;
-import retrofit2.Call;
-import retrofit2.Response;
 
 /**
  * Created by ashkan on 8/9/18.

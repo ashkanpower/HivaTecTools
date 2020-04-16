@@ -30,6 +30,12 @@ public class ActionBarView extends RelativeLayout {
     private int backgroundColor = 0;
     private int tintColor = 0;
 
+    private String title = "عنوان";
+    private int leftButtonType = 0;
+    private int leftDrawable = 0;
+    private int right1Drawable = 0;
+    private int right2Drawable = 0;
+
     public ActionBarView(Context context) {
         super(context);
         init();
@@ -42,6 +48,20 @@ public class ActionBarView extends RelativeLayout {
 
         backgroundColor = a.getColor(R.styleable.ActionBarView_backgroundColor, getContext().getResources().getColor(R.color.colorPrimary));
         tintColor = a.getColor(R.styleable.ActionBarView_tintColor, Color.WHITE);
+        title = a.getString(R.styleable.ActionBarView_title);
+
+        leftButtonType = a.getInt(R.styleable.ActionBarView_leftButton, 0);
+        int defLeft = 0;
+
+        switch (leftButtonType){
+            case 0 : defLeft = R.drawable.ic_arrow_back; break;
+            case 1 : defLeft = R.drawable.ic_menu; break;
+            default: defLeft = 0;
+        }
+
+        leftDrawable = a.getResourceId(R.styleable.ActionBarView_leftDrawable, defLeft);
+        right1Drawable = a.getResourceId(R.styleable.ActionBarView_right1Drawable, right1Drawable);
+        right2Drawable = a.getResourceId(R.styleable.ActionBarView_right2Drawable, right2Drawable);
 
         a.recycle();
 
@@ -64,6 +84,20 @@ public class ActionBarView extends RelativeLayout {
         this.rightButton2 = contentView.rightButton2;
 
 
+        this.titleTextView.setText(title);
+        leftButton.setImageResource(leftDrawable);
+        rightButton1.setImageResource(right1Drawable);
+        rightButton2.setImageResource(right2Drawable);
+
+        if(leftDrawable == 0){
+            leftButton.setVisibility(GONE);
+        }
+        if(right1Drawable == 0){
+            rightButton1.setVisibility(GONE);
+        }
+        if(right2Drawable == 0){
+            rightButton2.setVisibility(GONE);
+        }
     }
     public Toolbar getToolbar(){
 

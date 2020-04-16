@@ -23,6 +23,16 @@
         <attr name="backgroundColor"></attr>
         <attr name="tintColor"></attr>
 
+        <attr name="title"></attr>
+        <attr name="leftButton" format="enum">
+            <enum name="back" value="0"></enum>
+            <enum name="menu" value="1"></enum>
+            <enum name="custom" value="2"></enum>
+        </attr>
+        <attr name="leftDrawable" format="reference"></attr>
+        <attr name="right1Drawable" format="reference"></attr>
+        <attr name="right2Drawable" format="reference"></attr>
+
     </declare-styleable>
 
     <declare-styleable name="HivaRadioView">
