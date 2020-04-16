@@ -39,6 +39,8 @@ public class RecyclerLoadMoreAndRefresh extends RelativeLayout {
 	boolean isLoading = false;
 	String errorString = "خطا در دریافت اطلاعات";
 	boolean hasError = false;
+	private boolean isSilentLoading = false;
+
 
 	public RecyclerLoadMoreAndRefresh(Context context) {
 		super(context);
@@ -90,7 +92,6 @@ public class RecyclerLoadMoreAndRefresh extends RelativeLayout {
 				super.onScrollStateChanged(recyclerView, newState);
 
 				if(canLoadMore && !isLoading && layoutManager.findLastCompletelyVisibleItemPosition() == adapter.getItems().size() - 1){
-
 					startLoading();
 				}
 			}
@@ -100,7 +101,17 @@ public class RecyclerLoadMoreAndRefresh extends RelativeLayout {
 	public void setDelegate(Delegate delegate){
 
 		this.delegate = delegate;
+
 		startLoading();
+	}
+
+	public void setDelegate(Delegate delegate, Boolean startLoading){
+
+		this.delegate = delegate;
+
+		if(startLoading) {
+			startLoading();
+		}
 	}
 
 	private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
@@ -114,6 +125,7 @@ public class RecyclerLoadMoreAndRefresh extends RelativeLayout {
 
 	public void startLoading(){
 
+
 		if(hasError) {
 			adapter.removeItem(errorItem);
 			adapter.addItem(getLoadingItem());
@@ -123,13 +135,19 @@ public class RecyclerLoadMoreAndRefresh extends RelativeLayout {
 		canLoadMore = true; // give list another chance to load more items
 		isLoading = true;
 
-		adapter.notifyDataSetChanged();
+		if(!isSilentLoading) {
+			adapter.notifyDataSetChanged();
+		}
 
 		if(delegate != null)
 			delegate.loadMore(page);
+
+
 	}
 
 	public void doneLoading(ArrayList items, int page){
+
+
 
 		if(this.page == 0 && page != 0){
 			return;
@@ -139,6 +157,12 @@ public class RecyclerLoadMoreAndRefresh extends RelativeLayout {
 
 		adapter.removeItem(getLoadingItem());
 		adapter.removeItem(getEmptyItem(""));
+
+
+		if(isSilentLoading){
+			adapter.clearItems();
+			isSilentLoading = false;
+		}
 
 
 		if(page == 0){
@@ -155,19 +179,20 @@ public class RecyclerLoadMoreAndRefresh extends RelativeLayout {
 		}else{
 
 			this.page++;
-
 			adapter.addItems(items);
+		}
 
-			if(items.size() < minPageSize){
-				canLoadMore = false;
-			}else{
-				adapter.addItem(getLoadingItem());
-			}
+		if(items.size() < minPageSize){
+			canLoadMore = false;
+		}else{
+			adapter.addItem(getLoadingItem());
 		}
 
 		adapter.notifyDataSetChanged();
 
 		isLoading = false;
+
+		//Log.i("recycler", "doneLoading }");
 	}
 
 	public void doneWithError(int page, String error, Boolean canRefresh){
@@ -177,6 +202,8 @@ public class RecyclerLoadMoreAndRefresh extends RelativeLayout {
 
 		refreshLayout.setRefreshing(false);
 
+		isLoading = false;
+		isSilentLoading = false;
 		hasError = true;
 		adapter.removeItem(getLoadingItem());
 		adapter.addItem(getErrorItem(error, canRefresh));
@@ -188,6 +215,16 @@ public class RecyclerLoadMoreAndRefresh extends RelativeLayout {
 		adapter.clearItems();
 		adapter.addItem(getLoadingItem());
 		page = 0;
+
+		startLoading();
+	}
+
+	public void resetAndStartLoadingSilent() {
+
+
+		isSilentLoading = true;
+		page = 0;
+
 		startLoading();
 	}
 
