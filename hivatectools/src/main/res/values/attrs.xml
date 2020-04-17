@@ -146,6 +146,11 @@
             <enum name="bottom" value="3"></enum>
         </attr>
 
+        <attr name="alignment" format="enum">
+            <enum name="start" value="0"></enum>
+            <enum name="center" value="1"></enum>
+            <enum name="end" value="2"></enum>
+        </attr>
 
         <attr name="textOff" format="string"></attr>
         <attr name="textColorOff" format="color"></attr>

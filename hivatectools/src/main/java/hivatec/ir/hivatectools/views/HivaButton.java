@@ -69,6 +69,7 @@ public class HivaButton extends RelativeLayout {
 	int bottomLeftCorner = 0;
 	int topRightCorner = 0;
 	int bottomRightCorner = 0;
+	int alignment = 1;
 
 	//on state
 	String title = "دکمه";
@@ -178,6 +179,7 @@ public class HivaButton extends RelativeLayout {
 			iconPosition = a.getInt(R.styleable.HivaButton_iconPosition, iconPosition);
 			iconTint = a.getColor(R.styleable.HivaButton_iconTint, textColor);
 
+			alignment = a.getInt(R.styleable.HivaButton_alignment, alignment);
 
 			//off state
 			titleOff = a.getString(R.styleable.HivaButton_textOff);
@@ -306,7 +308,19 @@ public class HivaButton extends RelativeLayout {
 				new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 						ViewGroup.LayoutParams.WRAP_CONTENT);
 
-		linearLayoutLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+		switch (alignment){
+			case 0 : //start
+				linearLayoutLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+				break;
+			case 1 :
+				linearLayoutLayoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+				break;
+			case 2 :
+				linearLayoutLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+				break;
+		}
+
+
 		linearLayout.setLayoutParams(linearLayoutLayoutParams);
 		linearLayout.setClipToPadding(false);
 		linearLayout.setClipChildren(false);

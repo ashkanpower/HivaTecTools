@@ -123,18 +123,18 @@ public class RecyclerLoadMoreTestActivity extends ParentActivity implements Recy
 							ArrayList movies = new ArrayList<>();
 
 
-//							movies.add(new HeaderItem());
-//							movies.add(new RecycelerItem());
-//
-//							for (int i = 0; i < 10; i++) {
-//
-//								if (Math.random() < 0.4) {
-//									movies.add(new Movie("Titanic", "Jack, Rose ...", titanic));
-//								} else {
-//									movies.add(new Movie("Lord Of The Rings", "Gandalf, Frodo, Bilbo ...", lord));
-//								}
-//
-//							}
+							//movies.add(new HeaderItem());
+							//movies.add(new RecycelerItem());
+
+							for (int i = 0; i < 2; i++) {
+
+								if (Math.random() < 0.4) {
+									movies.add(new Movie("Titanic", "Jack, Rose ...", titanic));
+								} else {
+									movies.add(new Movie("Lord Of The Rings", "Gandalf, Frodo, Bilbo ...", lord));
+								}
+
+							}
 
 
 							recycler.doneLoading(movies, page);
