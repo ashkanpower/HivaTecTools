@@ -288,14 +288,19 @@ public class HivaButton extends RelativeLayout {
 		indicatorView.setIndeterminateDrawable(circularDrawable);
 		LayoutParams indicatorViewParams = null;
 
-		indicatorViewParams = new LayoutParams(
-				ViewUIHelper.dpToPx(25) ,
-				ViewUIHelper.dpToPx(25) );
+		if(iconWidth == 0){
+			indicatorViewParams = new LayoutParams(
+					ViewUIHelper.dpToPx(textSize / 2) ,
+					ViewUIHelper.dpToPx(textSize / 2));
+
+		}else{
+			indicatorViewParams = new LayoutParams(
+					ViewUIHelper.dpToPx(iconWidth / 2) ,
+					ViewUIHelper.dpToPx(iconWidth / 2) );
+		}
+
 
 		((CircularProgressDrawable) circularDrawable).setStrokeWidth(ViewUIHelper.dpToPx(4));
-
-
-		indicatorViewParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 
 		indicatorView.setVisibility(GONE);
 		indicatorView.setLayoutParams(indicatorViewParams);
@@ -393,14 +398,17 @@ public class HivaButton extends RelativeLayout {
 				linearLayout.addView(textView);
 				linearLayout.addView(spaceView);
 				linearLayout.addView(imageView);
+				linearLayout.addView(indicatorView);
 				break;
 			case 1 : //left
+				linearLayout.addView(indicatorView);
 				linearLayout.addView(imageView);
 				linearLayout.addView(spaceView);
 				linearLayout.addView(textView);
 				break;
 
 			case 2: //top
+				linearLayout.addView(indicatorView);
 				linearLayout.addView(imageView);
 				linearLayout.addView(spaceView);
 				linearLayout.addView(textView);
@@ -409,6 +417,7 @@ public class HivaButton extends RelativeLayout {
 				linearLayout.addView(textView);
 				linearLayout.addView(spaceView);
 				linearLayout.addView(imageView);
+				linearLayout.addView(indicatorView);
 				break;
 		}
 
@@ -434,7 +443,7 @@ public class HivaButton extends RelativeLayout {
 
 
 
-		this.addView(indicatorView, indicatorViewParams);
+		//this.addView(indicatorView, indicatorViewParams);
 		this.addView(linearLayout);
 
 		this.setClipToPadding(false);
@@ -564,12 +573,42 @@ public class HivaButton extends RelativeLayout {
 	/// public functions
 	////////////
 
+	private int imageViewLastState = 0;
+	private int textViewLastState = 0;
+	private int spaceViewLastState = 0;
+
 	public void startLoadingState(){
 
-		linearLayout.setVisibility(INVISIBLE);
+		imageViewLastState = imageView.getVisibility();
+		textViewLastState = textView.getVisibility();
+		spaceViewLastState = spaceView.getVisibility();
+
+		imageView.setVisibility(GONE);
+		textView.setVisibility(GONE);
+		spaceView.setVisibility(GONE);
 		indicatorView.setVisibility(VISIBLE);
 		indicatorView.setIndeterminate(false);
 		this.setClickable(false);
+	}
+
+	public void startLoadingStateInsideIcon(){
+
+		imageView.setVisibility(GONE);
+		indicatorView.setVisibility(VISIBLE);
+		indicatorView.setIndeterminate(false);
+
+		this.setClickable(false);
+	}
+
+	public void stopLoadingState(){
+
+		spaceView.setVisibility(spaceViewLastState);
+		imageView.setVisibility(imageViewLastState);
+		textView.setVisibility(textViewLastState);
+		indicatorView.setVisibility(GONE);
+		indicatorView.setIndeterminate(true);
+
+		this.setClickable(true);
 	}
 
 	public void setTitle(String title){
@@ -683,14 +722,7 @@ public class HivaButton extends RelativeLayout {
 
 	}
 
-	public void stopLoadingState(){
 
-		linearLayout.setVisibility(VISIBLE);
-		indicatorView.setVisibility(GONE);
-		indicatorView.setIndeterminate(true);
-
-		this.setClickable(true);
-	}
 
 	@Override
 	public void setEnabled(boolean enabled) {
