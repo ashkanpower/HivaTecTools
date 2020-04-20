@@ -180,7 +180,7 @@ public class HivaButton extends RelativeLayout {
 			iconTint = a.getColor(R.styleable.HivaButton_iconTint, textColor);
 
 			loadingTint = a.getColor(R.styleable.HivaButton_loadingTint, textColor);
-			loadingWidth = a.getDimensionPixelSize(R.styleable.HivaButton_loadingWidth, iconWidth / 2);
+			loadingWidth = a.getDimensionPixelSize(R.styleable.HivaButton_loadingWidth, iconWidth);
 
 			alignment = a.getInt(R.styleable.HivaButton_alignment, alignment);
 
