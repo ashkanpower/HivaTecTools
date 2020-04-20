@@ -70,6 +70,8 @@ public class HivaButton extends RelativeLayout {
 	int topRightCorner = 0;
 	int bottomRightCorner = 0;
 	int alignment = 1;
+	int loadingWidth = 0;
+	int loadingTint = 0;
 
 	//on state
 	String title = "دکمه";
@@ -86,7 +88,6 @@ public class HivaButton extends RelativeLayout {
 	int strokeColor = 0;
 	int strokeDashGap = 0;
 	int strokePressedColor = 0;
-	int loadingTint = 0;
 
 	//off state
 	String titleOff = "دکمه";
@@ -141,7 +142,6 @@ public class HivaButton extends RelativeLayout {
 			widthPadding = a.getDimensionPixelSize(R.styleable.HivaButton_widthPadding, widthPadding);
 			heightPadding = a.getDimensionPixelSize(R.styleable.HivaButton_heightPadding, heightPadding);
 			typeface = a.getString(R.styleable.HivaButton_typeface);
-			loadingTint = a.getColor(R.styleable.HivaButton_loadingTint, textColor);
 
 			isToggle = a.getBoolean(R.styleable.HivaButton_isToggle, isToggle);
 			isOn = a.getBoolean(R.styleable.HivaButton_isOn, isOn);
@@ -178,6 +178,9 @@ public class HivaButton extends RelativeLayout {
 			icon = a.getResourceId(R.styleable.HivaButton_icon, icon);
 			iconPosition = a.getInt(R.styleable.HivaButton_iconPosition, iconPosition);
 			iconTint = a.getColor(R.styleable.HivaButton_iconTint, textColor);
+
+			loadingTint = a.getColor(R.styleable.HivaButton_loadingTint, textColor);
+			loadingWidth = a.getColor(R.styleable.HivaButton_loadingWidth, iconWidth / 2);
 
 			alignment = a.getInt(R.styleable.HivaButton_alignment, alignment);
 
@@ -288,15 +291,15 @@ public class HivaButton extends RelativeLayout {
 		indicatorView.setIndeterminateDrawable(circularDrawable);
 		LayoutParams indicatorViewParams = null;
 
-		if(iconWidth == 0){
+		if(loadingWidth == 0){
 			indicatorViewParams = new LayoutParams(
 					ViewUIHelper.dpToPx(textSize / 2) ,
 					ViewUIHelper.dpToPx(textSize / 2));
 
 		}else{
 			indicatorViewParams = new LayoutParams(
-					ViewUIHelper.dpToPx(iconWidth / 2) ,
-					ViewUIHelper.dpToPx(iconWidth / 2) );
+					ViewUIHelper.dpToPx(loadingWidth) ,
+					ViewUIHelper.dpToPx(loadingWidth) );
 		}
 
 
