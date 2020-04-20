@@ -111,6 +111,7 @@
         <attr name="rippleColor"></attr>
 
         <attr name="loadingTint" format="color"></attr>
+        <attr name="loadingWidth" format="dimension"></attr>
 
         <attr name="backgroundSecondColor" format="color"></attr>
         <attr name="gradientAgnle" format="integer"></attr>

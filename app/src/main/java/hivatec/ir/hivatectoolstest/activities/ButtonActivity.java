@@ -118,7 +118,7 @@ public class ButtonActivity extends ParentActivity {
             return;
         }
 
-        ((HivaButton) button).startLoadingState();
+        ((HivaButton) button).startLoadingStateInsideIcon();
 
         button.postDelayed(new Runnable() {
             @Override
